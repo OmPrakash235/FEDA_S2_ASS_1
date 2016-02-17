@@ -1,0 +1,167 @@
+<html>
+	<head>
+		<title>List Swapping</title>
+	</head>
+	<style type="text/css">
+		.listHead {
+				font-family: arial;
+				margin: 0 0 10px;
+		}
+		.listCountText {
+				color: #cccccc;
+				font-size: 14px;
+		}
+		.listBox {
+				margin: 10px;
+				width: 250px;
+		}
+		.listBox, .commandBox {
+				display: inline-block;
+		}
+		.commandBox {
+				padding: 20px 20px 0;
+		}
+		select {
+				height: 150px;
+				width: 100%;
+		}
+		input {
+				background-color: #ffffff;
+				border-radius: 3px;
+				display: block;
+				font-weight: bold;
+				height: 30px;
+				margin: 10px 0;
+				padding: 0;
+				width: 50px;
+		}
+		input, select {
+				border: 1px solid #d5d5d5;
+				font-family: arial;
+		}
+	</style>
+	<body>
+		<div class="wrapper">
+			<div class="listBox">
+				<div class="listHead">Available Employees<span class="listCountText"> - Showing <span id="listCountAE"></span></span></div>
+				<select id="AvailableEmp" name="cars" multiple="multiple" class="listSelect">
+					<option value="Om Prakash">Om Prakash</option>
+					<option value="Chandan Singh">Chandan Singh</option>
+					<option value="Devraj Khatri">Devraj Khatri</option>
+					<option value="Devdutt Malakar">Devdutt Malakar</option>
+					<option value="Anand Kumar">Anand Kumar</option>
+					<option value="Mrinal Sahu">Mrinal Sahu</option>
+					<option value="Aakash Kumar">Aakash Kumar</option>
+					<option value="Nishant Kumar">Nishant Kumar</option>
+					<option value="Shashi Kumar">Shashi Kumar</option>
+					<option value="Manoj Mandal">Manoj Mandal</option>
+					<option value="Neha Dugar">Neha Dugar</option>
+					<option value="Vikas Chandra">Vikas Chandra</option>
+				</select>
+			</div>
+			<div class="commandBox">
+				<input type="button" value=">>" onclick="shiftMultipleRight()"/>
+				<input type="button" value=">" onclick="shiftOneRight()"/>
+				<input type="button" value="<" onclick="shiftOneLeft()"/>
+				<input type="button" value="<<" onclick="shiftMultipleLeft()"/>
+			</div>
+			<div class="listBox">
+				<div class="listHead">Selected Employees<span class="listCountText"> - Showing <span id="listCountSE"></span></span></div>
+				<select id="selectedEmp" name="cars" multiple="multiple" class="listSelect">
+					<option value="Nidhi Dugar">Nidhi Dugar</option>
+					<option value="Rakesh Kumar">Rakesh Kumar</option>
+					<option value="Amar Kumar">Amar Kumar</option>
+					<option value="Arun Sharma">Arun Sharma</option>
+					<option value="Raju Singh">Raju Singh</option>
+				</select>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function shiftOneRight(){
+			try{
+				var a = document.getElementById("AvailableEmp");
+				var s = document.getElementById("selectedEmp");
+				var option = document.createElement("option");
+				option.text = a.options[a.selectedIndex].text;
+				s.add(option);
+				a.remove(a.selectedIndex);
+			}
+			catch(e){
+			}
+			listCounter();
+		}
+		
+		function shiftOneLeft(){
+			try{
+				var a = document.getElementById("AvailableEmp");
+				var s = document.getElementById("selectedEmp");
+				var option = document.createElement("option");
+				option.text = s.options[s.selectedIndex].text;
+				a.add(option);
+				s.remove(s.selectedIndex);
+			}
+			catch(e){
+			}
+			listCounter();
+		}
+		
+		function shiftMultipleRight(){
+			var a = document.getElementById("AvailableEmp");
+			var s = document.getElementById("selectedEmp");
+			
+			for(var count = a.options.length-1; count >= 0; count--){
+
+				if(a.options[count].selected == true){
+					try{
+						var option = document.createElement("option");
+						option.text = a.options[count].text;
+						s.add(option);
+						a.remove(count, null);
+					}
+					catch(error){
+						var option = document.createElement("option");
+						option.text = a.options(count).text;
+						s.add(option);
+						a.remove(count);
+					}
+        }
+			}
+			listCounter();
+		}
+		
+		function shiftMultipleLeft(){
+			var a = document.getElementById("AvailableEmp");
+			var s = document.getElementById("selectedEmp");
+			
+			for(var count = s.options.length-1; count >= 0; count--){
+
+				if(s.options[count].selected == true){
+					try{
+						var option = document.createElement("option");
+						option.text = s.options[count].text;
+						a.add(option);
+						s.remove(count, null);
+					}
+					catch(error){
+						var option = document.createElement("option");
+						option.text = a.options(count).text;
+						a.add(option);
+						s.remove(count);
+					}
+        }
+			}
+			listCounter();
+		}
+		
+		function listCounter(){
+			var a = document.getElementById("AvailableEmp");
+			var s = document.getElementById("selectedEmp");
+			
+			document.getElementById('listCountAE').innerHTML = a.options.length;
+			document.getElementById('listCountSE').innerHTML = s.options.length;
+		}
+		
+		listCounter();
+	</script>
+</html>
